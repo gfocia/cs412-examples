@@ -1,0 +1,13 @@
+{% extends 'quotes/base.html' %}
+
+{% block title %}Random Quote and Image of Taylor Swift{% endblock %}
+
+{% block content %}
+    <h1>Random Quote and Image of Taylor Swift</h1>
+    
+    <div class="center-content">
+        <!-- Apply the fixed-size class to the image -->
+        <img src="{{ image }}" alt="Image of Taylor Swift" class="fixed-size">
+        <p>{{ quote }}</p>
+    </div>
+{% endblock %}
