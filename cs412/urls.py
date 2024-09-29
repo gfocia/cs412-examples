@@ -22,6 +22,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("hw/", include("hw.urls")), ## new path
-    path("quotes/", include("quotes.urls")), # new paths for HW3
-    path('', include('quotes.urls')), 
+    path("quotes/", include("quotes.urls")), # new paths for HW3!
+    #path('', include('quotes.urls')), 
+    path("restaurant/", include("restaurant.urls")), # new path for HW4!
+    path('', include('restaurant.urls')), # new path for HW4!
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

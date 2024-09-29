@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "hw", # new app!!
     "quotes", # new app for assignment 3!!
+    "restaurant", # new app for assignment 4!! 
 ]
 
 MIDDLEWARE = [
