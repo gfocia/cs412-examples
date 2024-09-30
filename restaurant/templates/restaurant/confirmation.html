@@ -4,4 +4,9 @@
     <p>Thank you {{ name }}!<p>
     <p>Your order has been placed successfully.</p>
     <p>You ordered: {{ selected_items }}</p>
+    <p>Extra instructions: {{ instructions }}</p>
+    <p>We will call you back when it is ready at {{ phone }}</p>
+    <p>This order was place at: {% now "H:i:s" %}</p>
+    <p>Your total is: {{total}}</p>
+
 {% endblock %}

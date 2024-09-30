@@ -48,17 +48,37 @@ def submit(request):
 
         selected_items = request.POST.getlist('options') 
 
+        extra_info = request.POST.get('instructions')
+
+        phone_info = request.POST.get('phone')
+
+
+
         box_combo_option = request.POST.get('box_combo_option')
         if 'The Box Combo' in selected_items and box_combo_option:
             selected_items.append(f"{box_combo_option} for The Box Combo")
 
         formatted_items = ', '.join(selected_items)
 
+        prices = {
+        "The Box Combo": 12.99,
+        "The Caniac Combo": 19.39,
+        "The Three Finger Combo": 10.90,
+        "The Sandwich Combo": 11.79,
+        "Canes Sauce": 0.00  # Free item
+    }
+
+        total = sum(prices.get(item, 0) for item in selected_items)
+
+
 
         # package the data up to be used in response
         context = {
             'name': name,
             'selected_items': formatted_items,
+            'instructions': extra_info, 
+            'phone': phone_info, 
+            'total': total, 
         }
 
         # generate a response
