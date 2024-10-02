@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+
+<h1> showing all articles</h1>
+
+<!-- print out the context variables called articles-->
+ <!-- {{articles}} -->
+
+ <div>
+    {% for a in articles %}
+    <div>
+        <h2>{{a.title}}</h2>
+
+        <h3> by {{a.author}} at {{a.published}}</h3>
+
+        <img src="{{a.image_url}}" alt="{{a.image_url}}">
+
+        <p> {{a.text}} </p>
+    </div>
+    {% endfor %}
+
+ </div>

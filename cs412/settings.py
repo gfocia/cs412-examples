@@ -40,7 +40,10 @@ INSTALLED_APPS = [
     "hw", # new app!!
     "quotes", # new app for assignment 3!!
     "restaurant", # new app for assignment 4!! 
+    "blog", # new app for in class example 10/1 !! 
+    "mini_fb", # new app for assignment 5 !!
 ]
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
