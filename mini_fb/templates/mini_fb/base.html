@@ -1,0 +1,36 @@
+{% load static %}
+<html>
+
+
+<head>
+   <title>{% block title %}Mini Facebook App{% endblock %}</title>
+
+
+   <link rel="stylesheet" href="{% static 'styles5.css' %}">
+
+
+</head>
+
+
+<body>
+
+
+   <!-- Navigation Bar -->
+   <nav>
+       <ul>
+        
+       </ul>
+   </nav>
+
+
+   <!-- Content Block -->
+   <div>
+       {% block content %}
+
+
+       {% endblock %}
+   </div>
+
+
+</body>
+</html>

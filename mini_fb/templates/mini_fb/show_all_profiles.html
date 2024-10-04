@@ -1,15 +1,18 @@
-{% extends 'blog/base.html' %}
+{% extends 'mini_fb/base.html' %}
 
 {% block content %}
-<h1>Showing All Profiles</h1>
+<h1> Showing All Mini FB Profiles </h1>
 
-<table>
+<!-- print out the context variables called articles-->
+ <!-- {{articles}} -->
+
+ <table>
     {% for p in profiles %}
     <tr>
         <!-- Left Column: Profile Info -->
         <td>
             <h2>{{ p.first_name }} {{ p.last_name }}</h2>
-            <p><strong>City:</strong> {{ p.city }}</p>
+            <p><strong>Home City:</strong> {{ p.city }}</p>
             <p><strong>Email:</strong> {{ p.email_address }}</p>
         </td>
         <!-- Right Column: Profile Image -->
@@ -19,4 +22,7 @@
     </tr>
     {% endfor %}
 </table>
-{% endblock %}
+
+<footer>Thank you for using Mini Facebook!</footer>
+
+ {% endblock %}

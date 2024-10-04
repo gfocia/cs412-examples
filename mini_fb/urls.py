@@ -4,5 +4,5 @@ from . import views
 
 # create a list of URLs for this app:
 urlpatterns = [
-    #path(r'', views.ShowAllView.as_view(), name="show_all"), ## new for 10/1 example 
+    path(r'', views.ShowAllProfilesView.as_view(), name="show_all_profiles"), ## new for assignment 5 
 ]
