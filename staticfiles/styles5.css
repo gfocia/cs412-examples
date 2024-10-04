@@ -1,0 +1,101 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f2f5; /* Facebook's light grey background */
+    margin: 0;
+    padding: 0;
+}
+
+/* Navigation Bar */
+nav {
+    background-color: #4267B2; /* Facebook's blue */
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Header */
+h1 {
+    font-size: 24px;
+    color: #4267B2;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Main Content */
+main {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
+}
+
+/* Profiles Table */
+table {
+    width: 80%;
+    max-width: 900px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+td {
+    padding: 10px;
+    vertical-align: top;
+}
+
+/* Profile Info */
+td:first-child {
+    width: 70%;
+}
+
+td h2 {
+    margin: 5px 0;
+    color: #333;
+}
+
+td p {
+    margin: 5px 0;
+    color: #555;
+}
+
+/* Profile Image */
+td img {
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    object-fit: cover; /* Ensures images are cropped uniformly */
+}
+
+/* Footer */
+footer {
+    background-color: #f0f2f5;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+    color: #666;
+}
