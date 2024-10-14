@@ -1,8 +1,11 @@
+from typing import Any
+import random
+from typing import Dict ## NEW for assignment 6 
 from django.urls import reverse ## NEW for assignment 6 
 from django.shortcuts import render
 from . models import * 
 from django.views.generic import ListView, DetailView, CreateView 
-from .forms import CreateProfileForm ## NEW for assignment 6 
+from .forms import * ## NEW for assignment 6 
 
 
 # Create your views here.
@@ -34,3 +37,26 @@ class CreateProfileView(CreateView): ## NEW for assignment 6
     def form_valid(self, form):
         '''This method executes after form submission if the form is valid'''
         return super().form_valid(form)
+
+class CreateStatusMessageView(CreateView):
+    ''' A View to create a new Status Message under a given Profile '''
+
+    form_class = CreateStatusMessageForm
+    template_name = 'mini_fb/create_status_form.html'
+
+    def get_context_data(self, **kwargs):
+        ''' Add the Profile to the context data for the template '''
+        context = super().get_context_data(**kwargs)
+        profile = Profile.objects.get(pk=self.kwargs['pk']) 
+        context['profile'] = profile  
+        return context
+
+    def form_valid(self, form):
+        ''' Attach the Profile to the StatusMessage before saving '''
+        profile = Profile.objects.get(pk=self.kwargs['pk'])  
+        form.instance.profile = profile 
+        return super().form_valid(form) 
+
+    def get_success_url(self):
+        ''' Redirect to the profile page after successfully creating a StatusMessage '''
+        return reverse('profile', kwargs={'pk': self.kwargs['pk']})
