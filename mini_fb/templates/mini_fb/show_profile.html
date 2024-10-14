@@ -1,0 +1,38 @@
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<h1> Showing A Specific Mini FB Profile </h1>
+
+ <table>
+    <tr>
+        <!-- Left Column: Profile Info -->
+        <td>
+            <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
+            <p><strong>Home City:</strong> {{ profile.city }}</p>
+            <p><strong>Email:</strong> {{ profile.email_address }}</p>
+        </td>
+        <!-- Right Column: Profile Image -->
+        <td>
+            <img src="{{ profile.profile_image_url }}" alt="{{ profile.first_name }}'s profile image" style="width: 150px; height: 150px; object-fit: cover;">
+        </td>
+    </tr>
+</table>
+
+<!-- Status Messages for this Profile -->
+<h2>Status Message(s)</h2>
+{% if profile.get_status_messages %}
+    <ul>
+        {% for status in profile.get_status_messages %}
+            <li>
+                <p>{{ status.message }}</p>
+                <small>Posted on: {{ status.timestamp }}</small>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>No status messages available for this profile.</p>
+{% endif %}
+
+<footer>Thank you for using Mini Facebook!</footer>
+
+{% endblock %}

@@ -3,26 +3,28 @@
 {% block content %}
 <h1> Showing All Mini FB Profiles </h1>
 
-<!-- print out the context variables called articles-->
- <!-- {{articles}} -->
-
- <table>
-    {% for p in profiles %}
-    <tr>
-        <!-- Left Column: Profile Info -->
-        <td>
-            <h2>{{ p.first_name }} {{ p.last_name }}</h2>
-            <p><strong>Home City:</strong> {{ p.city }}</p>
-            <p><strong>Email:</strong> {{ p.email_address }}</p>
-        </td>
-        <!-- Right Column: Profile Image -->
-        <td>
+<table>
+   {% for p in profiles %}
+   <tr>
+      <!-- Left Column: Profile Info -->
+      <td>
+        <!-- A link to the profile NEW for assignment 6 -->
+         <h2>
+            <a href="{% url 'profile' p.pk %}">{{ p.first_name }} {{ p.last_name }}</a> 
+         </h2>
+         <p><strong>Home City:</strong> {{ p.city }}</p>
+         <p><strong>Email:</strong> {{ p.email_address }}</p>
+      </td>
+      <!-- Right Column: Profile Image -->
+      <td>
+         <a href="{% url 'profile' p.pk %}">
             <img src="{{ p.profile_image_url }}" alt="{{ p.first_name }}'s profile image" style="width: 150px; height: 150px; object-fit: cover;">
-        </td>
-    </tr>
-    {% endfor %}
+         </a>
+      </td>
+   </tr>
+   {% endfor %}
 </table>
 
 <footer>Thank you for using Mini Facebook!</footer>
 
- {% endblock %}
+{% endblock %}

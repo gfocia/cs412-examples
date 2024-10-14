@@ -1,22 +1,28 @@
+<!-- blog/templats/blog/show_all.html -->
 {% extends 'blog/base.html' %}
 
 {% block content %}
-<h1>Showing All Profiles</h1>
 
-<table>
-    {% for p in profiles %}
-    <tr>
-        <!-- Left Column: Profile Info -->
-        <td>
-            <h2>{{ p.first_name }} {{ p.last_name }}</h2>
-            <p><strong>City:</strong> {{ p.city }}</p>
-            <p><strong>Email:</strong> {{ p.email_address }}</p>
-        </td>
-        <!-- Right Column: Profile Image -->
-        <td>
-            <img src="{{ p.profile_image_url }}" alt="{{ p.first_name }}'s profile image" style="width: 150px; height: 150px; object-fit: cover;">
-        </td>
-    </tr>
+<h1>Showing all Articles</h1>
+
+<main class="grid-container"> <!-- was <div> -->
+    {% for a in articles %}
+    <article> <!-- was <div> -->
+        
+        <a href="{% url 'article' a.pk %}"> <!-- use object instance.pk -->
+            <img src="{{a.image_url}}" alt="{{a.image_url}}">
+        </a>
+
+        <div> <!-- added this! -->
+            <h2><a href="{% url 'article' a.pk %}">{{a.title}}</a></h2>
+            <h3>by {{a.author}} at {{a.published}}</h3>
+            <p>
+                {{a.text}}
+            </p>       
+        </div> <!-- added this! -->
+ 
+    </article> <!-- was <div> -->
     {% endfor %}
-</table>
+</main> <!-- was <div> -->
+
 {% endblock %}
