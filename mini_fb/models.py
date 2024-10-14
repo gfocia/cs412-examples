@@ -11,9 +11,13 @@ class Profile(models.Model):
     email_address = models.TextField(blank=False)
     profile_image_url = models.URLField(blank=True)
 
-    def get_status_messages(self):
+    def get_status_messages(self): ## NEW for assignment 6 
         ''' Returns all status messages for this Profile, ordered by timestamp '''
         return StatusMessage.objects.filter(profile=self).order_by('-timestamp')
+
+    def get_absolute_url(self): ## NEW for assignment 6 
+        ''' Returns the URL to access a particular profile instance '''
+        return reverse('profile', kwargs={'pk': self.pk})
 
     def __str__(self):
         ''' Return a string representation of the user '''
