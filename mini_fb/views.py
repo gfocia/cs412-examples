@@ -4,7 +4,7 @@ from typing import Dict ## NEW for assignment 6
 from django.urls import reverse ## NEW for assignment 6 
 from django.shortcuts import render
 from . models import * 
-from django.views.generic import ListView, DetailView, CreateView 
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView 
 from .forms import * ## NEW for assignment 6 
 
 
@@ -72,3 +72,52 @@ class CreateStatusMessageView(CreateView):
     def get_success_url(self):
         ''' Redirect to the profile page after successfully creating a StatusMessage '''
         return reverse('profile', kwargs={'pk': self.kwargs['pk']})
+
+class UpdateProfileView(UpdateView): ## NEW for assignment 7 
+    ''' A view to update a given Profile '''
+    model = Profile 
+    form_class = UpdateProfileForm 
+    template_name = 'mini_fb/update_profile_form.html'
+
+    def get_success_url(self) -> str:
+        '''Return the URL to redirect to after successful profile creation'''
+        return reverse('profile', kwargs={'pk': self.object.pk}) 
+
+    def form_valid(self, form):
+        '''This method executes after form submission if the form is valid'''
+        return super().form_valid(form)
+
+class DeleteStatusMessageView(DeleteView): 
+    ''' A view that allows the user to delete a status messages '''
+    model = StatusMessage 
+    template_name = 'mini_fb/delete_status_form.html'
+    context_object_name = 'status_message'
+
+    def get_context_data(self, **kwargs):
+        ''' Add the Profile to the context data for the template '''
+        context = super().get_context_data(**kwargs)
+        profile = Profile.objects.get(pk=self.object.profile.pk)
+        context['profile'] = profile
+        return context
+
+    def get_success_url(self):
+        ''' Return the URL to redirect to after successful deletion '''
+        return reverse('profile', kwargs={'pk': self.object.profile.pk})
+
+class UpdateStatusMessageView(UpdateView): 
+    ''' A view that allows the user to update a status message '''
+    model = StatusMessage
+    form_class = CreateStatusMessageForm 
+    template_name = 'mini_fb/update_status_form.html'
+    context_object_name = 'status_message'
+
+    def get_context_data(self, **kwargs):
+        ''' Add the Profile to the context data for the template '''
+        context = super().get_context_data(**kwargs)
+        profile = Profile.objects.get(pk=self.object.profile.pk)  # Get the profile from the StatusMessage
+        context['profile'] = profile
+        return context
+
+    def get_success_url(self):
+        ''' Return the URL to redirect to after successful update '''
+        return reverse('profile', kwargs={'pk': self.object.profile.pk})
