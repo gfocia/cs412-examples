@@ -43,7 +43,7 @@ class Image(models.Model): ## NEW for assignment 7
     ''' Models the attributes of an Image file that is stored in the Django media directory '''
 
     # data attributes
-    image_file = models.ImageField(upload_to='media/')
+    image_file = models.ImageField(upload_to='')
     timestamp = models.DateTimeField(auto_now_add=True)
     status_message = models.ForeignKey(StatusMessage, on_delete=models.CASCADE)
 
