@@ -31,9 +31,23 @@ class StatusMessage(models.Model): ## NEW for assignment 6
     message = models.TextField(blank=False) 
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE) 
 
+    def get_images(self): 
+        ''' Get the images to display'''
+        return Image.objects.filter(status_message=self)
+
     def __str__(self):
         ''' Return a string representation of the StatusMessage object '''
         return f"Status by {self.profile.first_name} {self.profile.last_name} at {self.timestamp}"
 
+class Image(models.Model): ## NEW for assignment 7 
+    ''' Models the attributes of an Image file that is stored in the Django media directory '''
 
+    # data attributes
+    image_file = models.ImageField(upload_to='media/')
+    timestamp = models.DateTimeField(auto_now_add=True)
+    status_message = models.ForeignKey(StatusMessage, on_delete=models.CASCADE)
+
+    def __str__(self):
+            ''' Return a string representation of the Image object '''
+            return f"Image for {self.status_message.profile.first_name} at {self.timestamp}"
 

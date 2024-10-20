@@ -4,10 +4,19 @@
 
 <h2>Create a New Status Message</h2>
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
     {% csrf_token %} 
 
+    <!-- Render the form fields for the StatusMessage -->
     {{ form.as_table }} 
+
+    <!-- Add the file upload input field -->
+    <tr>
+        <td>Upload Images:</td>
+        <td>
+            <input type="file" name="files" multiple />
+        </td>
+    </tr>
 
     <tr>
         <td></td>

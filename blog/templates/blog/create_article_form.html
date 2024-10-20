@@ -2,9 +2,9 @@
 {% extends 'blog/base.html' %}
 {% block content %}
 
-<h2>Add a comment about {{article.title}}</h2>
+<h2>Add an Article</h2>
 
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
     <!-- display the form (context variable) -->
     <!-- {{form}} -->
 
@@ -18,12 +18,12 @@
         <td></td>
         <td>
             <!-- we need to add the submit button ourselves -->
-            <input type="submit" name="Create Comment">
+            <input type="submit" name="Create Article">
             {% csrf_token %}
         </form>
         <!-- NOTE: this is a separate form! -->
-        <form action="{% url 'article' article.pk %}">
-            <input type="submit" name="Cancel" value="Cancel"> 
+        <form action="{% url 'show_all' %}">
+            <input type="submit" name="Cancel" value="Cancel">
         </form>
     </td>
     </tr>

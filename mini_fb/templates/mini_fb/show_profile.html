@@ -26,6 +26,11 @@
             <li>
                 <p>{{ status.message }}</p>
                 <small>Posted on: {{ status.timestamp }}</small>
+
+                <!-- Display images associated with this status message, if any -->
+                {% for img in status.get_images %}
+                    <img src="{{ img.image_file.url }}" alt="Image for this status message" style="width: 150px; height: 150px; object-fit: cover;">
+                {% endfor %}
             </li>
         {% endfor %}
     </ul>

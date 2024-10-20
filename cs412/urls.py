@@ -28,4 +28,6 @@ urlpatterns = [
     path('', include('quotes.urls')), # new path for HW4!
     path("blog/", include("blog.urls")), # new path for 10/1 in class example! 
     path("mini_fb/", include("mini_fb.urls")), # new path for assignment 5 !! 
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+] 
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) ## NEW on 10/17 for the MEDIA DIRECTORY 

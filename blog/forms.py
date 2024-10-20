@@ -1,7 +1,7 @@
 # blog/forms.py
 
 from django import forms 
-from .models import Comment 
+from .models import Comment, Article
 
 # every time you create a new form for user input, you follow this process 
 class CreateCommentForm(forms.ModelForm):
@@ -13,3 +13,12 @@ class CreateCommentForm(forms.ModelForm):
 
         # fields = ['article', 'author', 'text', ]
         fields = ['author', 'text', ]
+
+
+class CreateArticleForm(forms.ModelForm): 
+    ''' A form to create a new Article '''
+
+    class Meta: 
+        ''' associate '''
+        model = Article 
+        fields = ['author', 'title', 'text', 'image_file', ]
