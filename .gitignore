@@ -18,10 +18,6 @@ django-env/
 */migrations/__pycache__/
 */migrations/*.pyc
 
-
-# Static and media files
-media/
-
 # Django cache files
 *.log
 *.pot
