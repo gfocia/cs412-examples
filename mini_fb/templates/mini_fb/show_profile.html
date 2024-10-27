@@ -45,6 +45,32 @@
     <p>No status messages available for this profile.</p>
 {% endif %}
 
+<!-- Link to View News Feed -->
+ <h2> Show News Feed </h2>
+<a href="{% url 'news_feed' pk=profile.pk %}">View News Feed</a>
+
+<!-- Display Friends for this Profile, NEW for assignment 8 -->
+<h2>Friends</h2>
+{% if profile.get_friends %}
+    <div class="friends-list" style="display: flex; gap: 20px; flex-wrap: wrap;">
+        {% for friend in profile.get_friends %}
+            <div class="friend-card" style="text-align: center;">
+                <a href="{{ friend.url }}">
+                    <img src="{{ friend.profile_image_url }}" alt="{{ friend.first_name }}'s profile image" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;">
+                    <p>{{ friend.first_name }} {{ friend.last_name }}</p>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No friends available for this profile.</p>
+{% endif %}
+
+<!-- Add link to friend suggestions -->
+ <h2> Friend Suggestions </h2>
+<a href="{% url 'friend_suggestions' pk=profile.pk %}">View Friend Suggestions</a>
+
+
 <footer>Thank you for using Mini Facebook!</footer>
 
 {% endblock %}

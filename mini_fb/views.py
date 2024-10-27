@@ -4,8 +4,9 @@ from typing import Dict ## NEW for assignment 6
 from django.urls import reverse ## NEW for assignment 6 
 from django.shortcuts import render
 from . models import * 
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView 
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View 
 from .forms import * ## NEW for assignment 6 
+from django.http import HttpResponseRedirect ## NEW for assignment 8 
 
 
 # Create your views here.
@@ -22,6 +23,12 @@ class ShowProfilePageView(DetailView): ## NEW for assignment 6
     model = Profile 
     template_name = 'mini_fb/show_profile.html'
     context_object_name = 'profile'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        profile = self.get_object()
+        context['current_profile'] = profile  
+        return context
 
 class CreateProfileView(CreateView): ## NEW for assignment 6 
     ''' A View to create a new Profile Page '''
@@ -121,3 +128,64 @@ class UpdateStatusMessageView(UpdateView):
     def get_success_url(self):
         ''' Return the URL to redirect to after successful update '''
         return reverse('profile', kwargs={'pk': self.object.profile.pk})
+
+class CreateFriendView(View):
+    ''' A view that allows a user to add a friend '''
+
+    def dispatch(self, request, *args, **kwargs):
+        # Handle only POST requests for adding a friend
+        if request.method.lower() == 'post':
+            return self.post(request, *args, **kwargs)
+        # If the method is not POST, return a 405 error
+        return self.http_method_not_allowed(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        # Extract primary keys from URL
+        profile_pk = kwargs.get('pk')
+        other_pk = kwargs.get('other_pk')
+
+        # Retrieve the Profile objects based on the primary keys
+        profile = Profile.objects.get(pk=profile_pk)
+        other_profile = Profile.objects.get(pk=other_pk)
+
+        # Add the friend relationship between the two profiles
+        profile.add_friend(other_profile)
+
+        # Redirect to the profile page after adding the friend
+        return HttpResponseRedirect(self.get_success_url(profile.pk))
+
+    def get_success_url(self, pk):
+        ''' Return the URL to redirect to after adding a friend '''
+        return reverse('profile', kwargs={'pk': pk})
+
+
+class ShowFriendSuggestionsView(DetailView): ## NEW for assignment 8 
+    ''' A view that allows a user to see friend suggestions '''
+
+    model = Profile
+    template_name = 'mini_fb/friend_suggestions.html'
+    context_object_name = 'profile'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        profile = self.get_object()
+        context['friend_suggestions'] = profile.get_friend_suggestions()
+        return context
+
+    def get_success_url(self):
+        ''' Return the URL to redirect to after successful update '''
+        return reverse('profile', kwargs={'pk': self.object.profile.pk})
+
+class ShowNewsFeedView(DetailView): ## NEW for assignment 8 
+    ''' A view that shows the news feed for a profile '''
+
+    model = Profile
+    template_name = 'mini_fb/news_feed.html'
+    context_object_name = 'profile'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        profile = self.get_object()
+        context['news_feed'] = profile.get_news_feed()
+        context['current_profile'] = profile
+        return context
