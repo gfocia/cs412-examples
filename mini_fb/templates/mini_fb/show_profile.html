@@ -1,9 +1,9 @@
 {% extends 'mini_fb/base.html' %}
 
 {% block content %}
-<h1> Showing A Specific Mini FB Profile </h1>
+<h1>Showing A Specific Mini FB Profile</h1>
 
- <table>
+<table>
     <tr>
         <!-- Left Column: Profile Info -->
         <td>
@@ -32,12 +32,13 @@
                     <img src="{{ img.image_file.url }}" alt="Image for this status message" style="width: 150px; height: 150px; object-fit: cover;">
                 {% endfor %}
 
-                 <!-- Delete link for this status message -->
-                 <a href="{% url 'delete' status.pk %}">Delete</a>
+                {% if request.user.is_authenticated and request.user == profile.user %}
+                    <!-- Delete link for this status message -->
+                    <a href="{% url 'delete' status.pk %}">Delete</a>
 
-                 <!-- Update link for this status message -->
-                 <a href="{% url 'update' status.pk %}">Update</a>
-
+                    <!-- Update link for this status message -->
+                    <a href="{% url 'update' status.pk %}">Update</a>
+                {% endif %}
             </li>
         {% endfor %}
     </ul>
@@ -45,11 +46,13 @@
     <p>No status messages available for this profile.</p>
 {% endif %}
 
-<!-- Link to View News Feed -->
- <h2> Show News Feed </h2>
-<a href="{% url 'news_feed' pk=profile.pk %}">View News Feed</a>
+{% if request.user.is_authenticated and request.user == profile.user %}
+    <!-- Link to View News Feed -->
+    <h2>Show News Feed</h2>
+    <a href="{% url 'news_feed' pk=profile.pk %}">View News Feed</a>
+{% endif %}
 
-<!-- Display Friends for this Profile, NEW for assignment 8 -->
+<!-- Display Friends for this Profile -->
 <h2>Friends</h2>
 {% if profile.get_friends %}
     <div class="friends-list" style="display: flex; gap: 20px; flex-wrap: wrap;">
@@ -66,11 +69,11 @@
     <p>No friends available for this profile.</p>
 {% endif %}
 
-<!-- Add link to friend suggestions -->
- <h2> Friend Suggestions </h2>
-<a href="{% url 'friend_suggestions' pk=profile.pk %}">View Friend Suggestions</a>
-
+{% if request.user.is_authenticated and request.user == profile.user %}
+    <!-- Add link to friend suggestions -->
+    <h2>Friend Suggestions</h2>
+    <a href="{% url 'friend_suggestions' pk=profile.pk %}">View Friend Suggestions</a>
+{% endif %}
 
 <footer>Thank you for using Mini Facebook!</footer>
-
 {% endblock %}

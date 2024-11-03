@@ -17,6 +17,13 @@ class ShowAllView(ListView):
     template_name = 'blog/show_all.html'
     context_object_name = 'articles'
 
+    def dispatch(seld, *args, **kwargs):
+        ''' implement this method to add some tracing '''
+
+        print("self.request.user={self.request.user}")
+
+        return super().dispatch(*args, **kwargs)
+
 class RandomArticleView(DetailView):
     '''Show one article selected at random.'''
 

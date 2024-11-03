@@ -1,8 +1,13 @@
 from django.db import models
+from django.contrib.auth.models import User ## NEW for assignment 9 
 
 # Create your models here.
 class Profile(models.Model):
     ''' Encapsulates the data for a facebook Profile by some user.'''
+
+
+    ## NEW for assignment 9 
+    # user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     # data attributes 
     first_name = models.TextField(blank=False)

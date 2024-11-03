@@ -7,6 +7,7 @@ from . models import *
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View 
 from .forms import * ## NEW for assignment 6 
 from django.http import HttpResponseRedirect ## NEW for assignment 8 
+from django.contrib.auth.mixins import LoginRequiredMixin ## NEW for assignment 9 
 
 
 # Create your views here.
@@ -45,7 +46,7 @@ class CreateProfileView(CreateView): ## NEW for assignment 6
         '''This method executes after form submission if the form is valid'''
         return super().form_valid(form)
 
-class CreateStatusMessageView(CreateView):
+class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     ''' A View to create a new Status Message under a given Profile '''
 
     form_class = CreateStatusMessageForm
@@ -80,7 +81,7 @@ class CreateStatusMessageView(CreateView):
         ''' Redirect to the profile page after successfully creating a StatusMessage '''
         return reverse('profile', kwargs={'pk': self.kwargs['pk']})
 
-class UpdateProfileView(UpdateView): ## NEW for assignment 7 
+class UpdateProfileView(LoginRequiredMixin, UpdateView): ## NEW for assignment 7 
     ''' A view to update a given Profile '''
     model = Profile 
     form_class = UpdateProfileForm 
@@ -94,7 +95,7 @@ class UpdateProfileView(UpdateView): ## NEW for assignment 7
         '''This method executes after form submission if the form is valid'''
         return super().form_valid(form)
 
-class DeleteStatusMessageView(DeleteView): 
+class DeleteStatusMessageView(LoginRequiredMixin, DeleteView): 
     ''' A view that allows the user to delete a status messages '''
     model = StatusMessage 
     template_name = 'mini_fb/delete_status_form.html'
@@ -111,7 +112,7 @@ class DeleteStatusMessageView(DeleteView):
         ''' Return the URL to redirect to after successful deletion '''
         return reverse('profile', kwargs={'pk': self.object.profile.pk})
 
-class UpdateStatusMessageView(UpdateView): 
+class UpdateStatusMessageView(LoginRequiredMixin, UpdateView): 
     ''' A view that allows the user to update a status message '''
     model = StatusMessage
     form_class = CreateStatusMessageForm 
@@ -129,7 +130,7 @@ class UpdateStatusMessageView(UpdateView):
         ''' Return the URL to redirect to after successful update '''
         return reverse('profile', kwargs={'pk': self.object.profile.pk})
 
-class CreateFriendView(View):
+class CreateFriendView(LoginRequiredMixin, View):
     ''' A view that allows a user to add a friend '''
 
     def dispatch(self, request, *args, **kwargs):
@@ -159,7 +160,7 @@ class CreateFriendView(View):
         return reverse('profile', kwargs={'pk': pk})
 
 
-class ShowFriendSuggestionsView(DetailView): ## NEW for assignment 8 
+class ShowFriendSuggestionsView(LoginRequiredMixin, DetailView): ## NEW for assignment 8 
     ''' A view that allows a user to see friend suggestions '''
 
     model = Profile
@@ -176,7 +177,7 @@ class ShowFriendSuggestionsView(DetailView): ## NEW for assignment 8
         ''' Return the URL to redirect to after successful update '''
         return reverse('profile', kwargs={'pk': self.object.profile.pk})
 
-class ShowNewsFeedView(DetailView): ## NEW for assignment 8 
+class ShowNewsFeedView(LoginRequiredMixin, DetailView): ## NEW for assignment 8 
     ''' A view that shows the news feed for a profile '''
 
     model = Profile

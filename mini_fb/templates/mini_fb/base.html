@@ -29,6 +29,20 @@
     </ul>
    </nav>
 
+    <!-- Authentication Links -->
+    <p>
+        {% if request.user.is_authenticated %}
+           <span>Welcome, {{ request.user.username }}!</span>
+           <a href="{% url 'create_article' %}">Create Article</a>
+           <form method="POST" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <input type="submit" value="Logout">
+           </form>
+        {% else %}
+           <a href="{% url 'login' %}">Login</a>
+        {% endif %}
+     </p>
+
 
    <!-- Content Block -->
    <div>
