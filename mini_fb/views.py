@@ -8,6 +8,9 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from .forms import * ## NEW for assignment 6 
 from django.http import HttpResponseRedirect ## NEW for assignment 8 
 from django.contrib.auth.mixins import LoginRequiredMixin ## NEW for assignment 9 
+from django.contrib.auth.forms import UserCreationForm ## NEW for assignment 9 
+from django.contrib.auth import login ## NEW for assignment 9 
+
 
 
 # Create your views here.
@@ -44,7 +47,33 @@ class CreateProfileView(CreateView): ## NEW for assignment 6
 
     def form_valid(self, form):
         '''This method executes after form submission if the form is valid'''
-        return super().form_valid(form)
+
+        user_form = UserCreationForm(self.request.POST)
+
+        if user_form.is_valid():  
+            user = user_form.save()  
+            
+            profile = form.save(commit=False)  
+            profile.user = user  
+            profile.save()  
+            
+            login(self.request, user)
+
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            context = self.get_context_data(form=form)
+            context['user_form'] = user_form 
+            return self.render_to_response(context)
+
+
+    def get_object(self): ## NEW for assignment 9 
+        return Profile.objects.get(user=self.request.user)
+
+    def get_context_data(self, **kwargs): ## NEW for assignment 9 
+        context = super().get_context_data(**kwargs)
+        # Create an instance of the UserCreationForm and add it to the context
+        context['user_form'] = UserCreationForm()
+        return context
 
 class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     ''' A View to create a new Status Message under a given Profile '''
@@ -79,7 +108,7 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         ''' Redirect to the profile page after successfully creating a StatusMessage '''
-        return reverse('profile')
+        return reverse('profile', kwargs={'pk': self.kwargs['pk']})
 
     def get_login_url(self): ## NEW for assignment 9 
         return reverse('login')
@@ -93,7 +122,7 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView): ## NEW for assignment 7
 
     def get_success_url(self) -> str:
         '''Return the URL to redirect to after successful profile creation'''
-        return reverse('profile')
+        return reverse('profile', kwargs={'pk': self.object.pk}) 
 
     def form_valid(self, form):
         '''This method executes after form submission if the form is valid'''
@@ -120,7 +149,7 @@ class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         ''' Return the URL to redirect to after successful deletion '''
-        return reverse('profile')
+        return reverse('profile', kwargs={'pk': self.object.profile.pk})
 
     def get_login_url(self): ## NEW for assignment 9 
         return reverse('login')
@@ -142,7 +171,7 @@ class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         ''' Return the URL to redirect to after successful update '''
-        return reverse('profile')
+        return reverse('profile', kwargs={'pk': self.object.profile.pk})
 
     def get_login_url(self): ## NEW for assignment 9 
         return reverse('login')
@@ -174,7 +203,7 @@ class CreateFriendView(LoginRequiredMixin, View):
 
     def get_success_url(self, pk):
         ''' Return the URL to redirect to after adding a friend '''
-        return reverse('profile')
+        return reverse('profile', kwargs={'pk': pk})
     
     def get_login_url(self): ## NEW for assignment 9 
         return reverse('login')
@@ -195,7 +224,7 @@ class ShowFriendSuggestionsView(LoginRequiredMixin, DetailView): ## NEW for assi
 
     def get_success_url(self):
         ''' Return the URL to redirect to after successful update '''
-        return reverse('profile')
+        return reverse('profile', kwargs={'pk': self.object.profile.pk})
     
     def get_login_url(self): ## NEW for assignment 9 
         return reverse('login')
