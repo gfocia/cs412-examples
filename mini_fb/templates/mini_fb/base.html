@@ -1,57 +1,51 @@
 {% load static %}
 <html>
-
-
 <head>
    <title>{% block title %}Mini Facebook App{% endblock %}</title>
-
-
    <link rel="stylesheet" href="{% static 'styles5.css' %}">
-
-
 </head>
-
-
 <body>
-
 
    <!-- Navigation Bar -->
    <nav>
     <ul>
-        <li><a href="{% url 'show_all_profiles' %}">All Profiles</a></li> <!-- Link to the All Profiles page -->
-        <li><a href="{% url 'create_profile' %}">Create New Profile</a></li> <!-- Link to the Create A Profile page -->
-
-        <!-- Conditionally visible link for News Feed -->
-        {% if current_profile %}
-            <li><a href="{% url 'news_feed' pk=current_profile.pk %}">News Feed</a></li>
-        {% endif %}
-
-    </ul>
-   </nav>
-
-    <!-- Authentication Links -->
-    <p>
         {% if request.user.is_authenticated %}
-           <span>Welcome, {{ request.user.username }}!</span>
-           <a href="{% url 'create_article' %}">Create Article</a>
-           <form method="POST" action="{% url 'logout' %}">
-              {% csrf_token %}
-              <input type="submit" value="Logout">
-           </form>
-        {% else %}
-           <a href="{% url 'login' %}">Login</a>
-        {% endif %}
-     </p>
+            <li><a href="{% url 'create_article' %}">Create Article</a></li>
 
+            <!-- Check if the user is authenticated and has an active profile -->
+            {% if request.user.is_active %}
+                <!-- Check if the user has an associated profile -->
+                {% if request.user.profile %}
+                    <li>
+                        <a href="{% url 'profile' pk=request.user.profile.pk %}">See Your Profile</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+
+   <!-- Authentication Links -->
+   <div class="auth-links">
+       {% if request.user.is_authenticated %}
+           <span>Welcome, {{ request.user.username }}!</span>
+           <form method="POST" action="{% url 'logout' %}" style="display: inline;">
+               {% csrf_token %}
+               <input type="submit" value="Logout">
+           </form>
+       {% else %}
+           <a href="{% url 'login' %}">Login</a>
+       {% endif %}
+   </div>
 
    <!-- Content Block -->
    <div>
        {% block content %}
-
-
        {% endblock %}
    </div>
-
 
 </body>
 </html>

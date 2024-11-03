@@ -79,7 +79,11 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         ''' Redirect to the profile page after successfully creating a StatusMessage '''
-        return reverse('profile', kwargs={'pk': self.kwargs['pk']})
+        return reverse('profile')
+
+    def get_login_url(self): ## NEW for assignment 9 
+        return reverse('login')
+
 
 class UpdateProfileView(LoginRequiredMixin, UpdateView): ## NEW for assignment 7 
     ''' A view to update a given Profile '''
@@ -89,11 +93,17 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView): ## NEW for assignment 7
 
     def get_success_url(self) -> str:
         '''Return the URL to redirect to after successful profile creation'''
-        return reverse('profile', kwargs={'pk': self.object.pk}) 
+        return reverse('profile')
 
     def form_valid(self, form):
         '''This method executes after form submission if the form is valid'''
         return super().form_valid(form)
+
+    def get_login_url(self): ## NEW for assignment 9 
+        return reverse('login')
+
+    def get_object(self): ## NEW for assignment 9 
+        return Profile.objects.get(user=self.request.user)
 
 class DeleteStatusMessageView(LoginRequiredMixin, DeleteView): 
     ''' A view that allows the user to delete a status messages '''
@@ -110,7 +120,11 @@ class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
 
     def get_success_url(self):
         ''' Return the URL to redirect to after successful deletion '''
-        return reverse('profile', kwargs={'pk': self.object.profile.pk})
+        return reverse('profile')
+
+    def get_login_url(self): ## NEW for assignment 9 
+        return reverse('login')
+    
 
 class UpdateStatusMessageView(LoginRequiredMixin, UpdateView): 
     ''' A view that allows the user to update a status message '''
@@ -128,7 +142,10 @@ class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         ''' Return the URL to redirect to after successful update '''
-        return reverse('profile', kwargs={'pk': self.object.profile.pk})
+        return reverse('profile')
+
+    def get_login_url(self): ## NEW for assignment 9 
+        return reverse('login')
 
 class CreateFriendView(LoginRequiredMixin, View):
     ''' A view that allows a user to add a friend '''
@@ -157,7 +174,10 @@ class CreateFriendView(LoginRequiredMixin, View):
 
     def get_success_url(self, pk):
         ''' Return the URL to redirect to after adding a friend '''
-        return reverse('profile', kwargs={'pk': pk})
+        return reverse('profile')
+    
+    def get_login_url(self): ## NEW for assignment 9 
+        return reverse('login')
 
 
 class ShowFriendSuggestionsView(LoginRequiredMixin, DetailView): ## NEW for assignment 8 
@@ -175,7 +195,13 @@ class ShowFriendSuggestionsView(LoginRequiredMixin, DetailView): ## NEW for assi
 
     def get_success_url(self):
         ''' Return the URL to redirect to after successful update '''
-        return reverse('profile', kwargs={'pk': self.object.profile.pk})
+        return reverse('profile')
+    
+    def get_login_url(self): ## NEW for assignment 9 
+        return reverse('login')
+
+    def get_object(self): ## NEW for assignment 9 
+        return Profile.objects.get(user=self.request.user)
 
 class ShowNewsFeedView(LoginRequiredMixin, DetailView): ## NEW for assignment 8 
     ''' A view that shows the news feed for a profile '''
@@ -190,3 +216,9 @@ class ShowNewsFeedView(LoginRequiredMixin, DetailView): ## NEW for assignment 8
         context['news_feed'] = profile.get_news_feed()
         context['current_profile'] = profile
         return context
+    
+    def get_login_url(self): ## NEW for assignment 9 
+        return reverse('login')
+
+    def get_object(self): ## NEW for assignment 9 
+        return Profile.objects.get(user=self.request.user)

@@ -7,7 +7,7 @@ class Profile(models.Model):
 
 
     ## NEW for assignment 9 
-    # user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     # data attributes 
     first_name = models.TextField(blank=False)
