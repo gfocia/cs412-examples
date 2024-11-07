@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     "restaurant", # new app for assignment 4!! 
     "blog", # new app for in class example 10/1 !! 
     "mini_fb", # new app for assignment 5 !!
+    "marathon_analytics", ## NEW for in class example on 11/5
+    "voter_analytics", ## NEW for assignment 10 
 ]
 
 
