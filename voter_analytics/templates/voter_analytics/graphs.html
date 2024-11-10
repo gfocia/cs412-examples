@@ -1,0 +1,63 @@
+{% load static %}
+<html>
+<head>
+    <title>Voter Data Graphs</title>
+    <link rel="stylesheet" href="{% static 'styles10.css' %}">
+</head>
+<body>
+    <h1>Voter Data Graphs</h1>
+
+    <!-- Filter Form -->
+    <form method="get" action="{% url 'graphs' %}">
+        <!-- Reuse your filter form here -->
+        <label for="party_affiliation">Party Affiliation:</label>
+        <select name="party_affiliation" id="party_affiliation">
+            <option value="">-- Select Party Affiliation --</option>
+            {% for affiliation in party_affiliations %}
+            <option value="{{ affiliation }}">{{ affiliation }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="min_dob">Minimum Date of Birth:</label>
+        <select name="min_dob" id="min_dob">
+            <option value="">-- Select Minimum Year --</option>
+            {% for year in years %}
+            <option value="{{ year }}">{{ year }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="max_dob">Maximum Date of Birth:</label>
+        <select name="max_dob" id="max_dob">
+            <option value="">-- Select Maximum Year --</option>
+            {% for year in years %}
+            <option value="{{ year }}">{{ year }}</option>
+            {% endfor %}
+        </select>
+
+        <label for="voter_score">Voter Score:</label>
+        <select name="voter_score" id="voter_score">
+            <option value="">-- Select Voter Score --</option>
+            {% for score in voter_scores %}
+            <option value="{{ score }}">{{ score }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Specific Elections:</label><br>
+        <input type="checkbox" name="v20_state" id="v20_state" value="true"> Voted in 2020 State<br>
+        <input type="checkbox" name="v21_town" id="v21_town" value="true"> Voted in 2021 Town<br>
+        <input type="checkbox" name="v21_primary" id="v21_primary" value="true"> Voted in 2021 Primary<br>
+        <input type="checkbox" name="v22_general" id="v22_general" value="true"> Voted in 2022 General<br>
+        <input type="checkbox" name="v23_town" id="v23_town" value="true"> Voted in 2023 Town<br>
+
+        <button type="submit">Apply Filters</button>
+    </form>
+
+    <!-- Graphs -->
+    <div>{{ birth_year_histogram|safe }}</div>
+    <div>{{ party_affiliation_pie|safe }}</div>
+    <div>{{ election_participation_histogram|safe }}</div>
+
+    <!-- Navigation link to Voter List -->
+    <p><a href="{% url 'voters' %}">Back to Voter List</a></p>
+</body>
+</html>
