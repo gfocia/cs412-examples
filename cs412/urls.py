@@ -25,9 +25,10 @@ urlpatterns = [
     path("quotes/", include("quotes.urls")), # new paths for HW3!
     #path('', include('quotes.urls')), 
     path("restaurant/", include("restaurant.urls")), # new path for HW4!
-    path('', include('quotes.urls')), # new path for HW4!
     path("blog/", include("blog.urls")), # new path for 10/1 in class example! 
     path("mini_fb/", include("mini_fb.urls")), # new path for assignment 5 !! 
+    path('', include("voter_analytics.urls")), ## NEW for assignment 10 !! 
+    path('voter_analytics/', include("voter_analytics.urls")), ## NEW for assignment 10 !! 
 ] 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) ## NEW on 10/17 for the MEDIA DIRECTORY 

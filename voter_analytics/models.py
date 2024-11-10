@@ -10,6 +10,7 @@ class Voter(models.Model):
     first_name = models.TextField()
     street_number = models.IntegerField()
     street_name = models.TextField()
+    apt_number = models.CharField(blank=True, max_length=5, null=True)
     zip_code = models.IntegerField()
     date_of_birth = models.DateField()
     day_of_reg = models.DateField()
@@ -28,6 +29,7 @@ class Voter(models.Model):
 
 def load_data(): 
     '''Function to load data records from CSV file into Django model instances.'''
+    Voter.objects.all().delete()
     filename = '/Users/georginafocia/Desktop/newton_voters.csv'
     with open(filename, newline='') as csvfile:
         reader = csv.reader(csvfile)
@@ -40,10 +42,11 @@ def load_data():
                 first_name=row[2],
                 street_number=int(row[3]),
                 street_name=row[4],
+                apt_number = row[5] if row[5] else None, 
                 zip_code=int(row[6]),
                 date_of_birth=row[7],
                 day_of_reg=row[8],
-                party_affiliation=row[9],
+                party_affiliation=row[9].strip(),
                 precinct_number=row[10],
                 v20_state=row[11].strip().lower() == 'true',
                 v21_town=row[12].strip().lower() == 'true',

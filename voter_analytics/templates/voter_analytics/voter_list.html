@@ -1,0 +1,121 @@
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'styles10.css' %}">
+    <title>Voter List</title>
+</head>
+
+<form method="get" action="">
+    <fieldset>
+        <legend>Filter Voters</legend>
+
+        <!-- Party Affiliation Filter -->
+        <label for="party_affiliation">Party Affiliation:</label>
+        <select name="party_affiliation" id="party_affiliation">
+            <option value="">-- Select Party Affiliation --</option>
+            {% for affiliation in party_affiliations %}
+            <option value="{{ affiliation }}">{{ affiliation }}</option>
+            {% endfor %}
+        </select>
+        
+        <!-- Minimum Date of Birth Filter -->
+        <label for="min_dob">Minimum Date of Birth:</label>
+        <select name="min_dob" id="min_dob">
+            <option value="">-- Select Minimum Year --</option>
+            {% for year in years %}
+            <option value="{{ year }}">{{ year }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Maximum Date of Birth Filter -->
+        <label for="max_dob">Maximum Date of Birth:</label>
+        <select name="max_dob" id="max_dob">
+            <option value="">-- Select Maximum Year --</option>
+            {% for year in years %}
+            <option value="{{ year }}">{{ year }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Voter Score Filter -->
+        <label for="voter_score">Voter Score:</label>
+        <select name="voter_score" id="voter_score">
+            <option value="">-- Select Voter Score --</option>
+            {% for score in voter_scores %}
+            <option value="{{ score }}">{{ score }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- Specific Elections Filter -->
+        <label>Specific Elections:</label><br>
+        <input type="checkbox" name="v20_state" id="v20_state" value="true">
+        <label for="v20_state">Voted in 2020 State</label><br>
+
+        <input type="checkbox" name="v21_town" id="v21_town" value="true">
+        <label for="v21_town">Voted in 2021 Town</label><br>
+
+        <input type="checkbox" name="v21_primary" id="v21_primary" value="true">
+        <label for="v21_primary">Voted in 2021 Primary</label><br>
+
+        <input type="checkbox" name="v22_general" id="v22_general" value="true">
+        <label for="v22_general">Voted in 2022 General</label><br>
+
+        <input type="checkbox" name="v23_town" id="v23_town" value="true">
+        <label for="v23_town">Voted in 2023 Town</label><br>
+
+        <!-- Submit Button -->
+        <button type="submit">Apply Filters</button>
+    </fieldset>
+</form>
+
+<body>
+    <h1>Voter List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Street Address</th>
+                <th>Date of Birth</th>
+                <th>Party Affiliation</th>
+                <th>Voter Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for voter in voters %}
+            <tr>
+                <td>{{ voter.first_name }}</td>
+                <td>{{ voter.last_name }}</td>
+                <td>{{ voter.street_number }} {{ voter.street_name }}</td>
+                <td>{{ voter.date_of_birth }}</td>
+                <td>{{ voter.party_affiliation }}</td>
+                <td>{{ voter.voter_score }}</td>
+                <td><a href="{% url 'voter' voter.pk %}">View Details</a></td> <!-- Link to detail page -->
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No voters available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Pagination Controls -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</body>
+</html>
