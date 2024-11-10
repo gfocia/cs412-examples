@@ -1,0 +1,71 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e0f7fa; /* Light blue background for the page */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #333;
+}
+
+h1 {
+    color: #444;
+    margin-top: 20px;
+}
+
+table {
+    width: 80%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: left;
+}
+
+thead th {
+    background-color: #b3e5fc; /* Light blue background for the header row */
+    color: #333;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.pagination {
+    margin: 20px 0;
+    font-size: 1rem;
+}
+
+.pagination a, .pagination .current {
+    color: #3f99b7;
+    margin: 0 5px;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.pagination a {
+    background-color: #e7f7ee;
+    transition: background-color 0.3s;
+}
+
+.pagination a:hover {
+    background-color: #d1f0da;
+}
+
+.pagination .current {
+    font-weight: bold;
+    color: #fff;
+    background-color: #3f99b7;
+}
