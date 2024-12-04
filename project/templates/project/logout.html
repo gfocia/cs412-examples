@@ -1,0 +1,9 @@
+{% extends 'project/base.html' %}
+
+{% block content %}
+<h1 style="text-align: center;">Logged Out</h1>
+<p style="text-align: center;">You have successfully logged out.</p>
+<div style="text-align: center;">
+    <a href="{% url 'login' %}" class="custom-button">Log in again</a>
+</div>
+{% endblock %}

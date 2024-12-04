@@ -1,0 +1,25 @@
+{% extends 'project/base.html' %}
+
+{% block title %}Create Outfit Idea{% endblock %}
+
+{% block content %}
+<h1 style="text-align: center; color: #ff66a3;">Create Outfit Idea</h1>
+<form method="post" enctype="multipart/form-data" style="max-width: 600px; margin: auto;">
+    {% csrf_token %}
+    <!-- Render each field manually -->
+    <div style="margin-bottom: 15px;">
+        {{ form.description.label_tag }} {{ form.description }}
+    </div>
+    <div style="margin-bottom: 15px;">
+        {{ form.style_aesthetic.label_tag }} {{ form.style_aesthetic }}
+    </div>
+    <!-- Custom image upload field -->
+    <div style="margin-bottom: 15px;">
+        <label for="id_image" style="color: #ff66a3; font-weight: bold;">Upload an Image:</label>
+        <input type="file" name="image" id="id_image" accept="image/*" style="display: block;">
+    </div>
+    <div style="text-align: center;">
+        <button type="submit" class="custom-button">Save</button>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends 'project/base.html' %}
+
+{% block title %}Aesthetic Details{% endblock %}
+
+{% block content %}
+    <h1>{{ aesthetic.name }}</h1>
+    <p>{{ aesthetic.description }}</p>
+    <img src="{{ aesthetic.example_image.url }}" alt="{{ aesthetic.name }}" width="300px">
+{% endblock %}

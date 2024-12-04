@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "mini_fb", # new app for assignment 5 !!
     "marathon_analytics", ## NEW for in class example on 11/5
     "voter_analytics", ## NEW for assignment 10 
+    "project", ## NEW for final project 
 ]
 
 

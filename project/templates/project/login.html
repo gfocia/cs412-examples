@@ -1,0 +1,12 @@
+{% extends 'project/base.html' %}
+
+{% block content %}
+<h1 style="text-align: center;">Login</h1>
+<form method="POST" action="{% url 'login' %}" style="max-width: 400px; margin: auto;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="hidden" name="next" value="{% url 'show_all_profiles' %}">
+    <button type="submit" class="custom-button">Login</button>
+    <a href="{% url 'register_user' %}" class="custom-button">Register New User</a>
+</form>
+{% endblock %}

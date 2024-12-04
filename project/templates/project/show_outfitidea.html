@@ -1,0 +1,9 @@
+{% extends 'project/base.html' %}
+
+{% block title %}Outfit Idea Details{% endblock %}
+
+{% block content %}
+    <h1>{{ outfitidea.description }}</h1>
+    <p>Created by: {{ outfitidea.profile.user.username }}</p>
+    <p>Style: {{ outfitidea.style_aesthetic.name }}</p>
+{% endblock %}

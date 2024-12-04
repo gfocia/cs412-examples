@@ -1,0 +1,14 @@
+{% extends 'project/base.html' %}
+
+{% block title %}Create Aesthetic{% endblock %}
+
+{% block content %}
+<h1 style="text-align: center; color: #ff66a3;">Create Aesthetic</h1>
+<form method="post" enctype="multipart/form-data" style="max-width: 600px; margin: auto;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div style="text-align: center;">
+        <button type="submit" class="custom-button">Save</button>
+    </div>
+</form>
+{% endblock %}

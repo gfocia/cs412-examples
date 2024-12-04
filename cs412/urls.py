@@ -29,6 +29,7 @@ urlpatterns = [
     path("mini_fb/", include("mini_fb.urls")), # new path for assignment 5 !! 
     path('', include("voter_analytics.urls")), ## NEW for assignment 10 !! 
     path('voter_analytics/', include("voter_analytics.urls")), ## NEW for assignment 10 !! 
+    path('project/', include("project.urls")), ## NEW for final project 
 ] 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) ## NEW on 10/17 for the MEDIA DIRECTORY 

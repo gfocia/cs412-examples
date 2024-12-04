@@ -1,0 +1,10 @@
+{% extends 'project/base.html' %}
+
+{% block title %}Outfit Suggestion Details{% endblock %}
+
+{% block content %}
+    <h1>{{ outfitsuggestion.title }}</h1>
+    <p>{{ outfitsuggestion.description }}</p>
+    <p>Style: {{ outfitsuggestion.aesthetic.name }}</p>
+    <img src="{{ outfitsuggestion.image.url }}" alt="{{ outfitsuggestion.title }}" width="300px">
+{% endblock %}

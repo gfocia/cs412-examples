@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Fashion App{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'project.css' %}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="{% url 'show_all_profiles' %}" class="nav-button">Profiles</a>
+            <a href="{% url 'show_all_aesthetics' %}" class="nav-button">Aesthetics</a>
+            <a href="{% url 'show_all_outfitideas' %}" class="nav-button">Outfit Ideas</a>
+            <a href="{% url 'show_all_outfitsuggestions' %}" class="nav-button">Outfit Suggestions</a>
+            <a href="{% url 'create_aesthetic' %}" class="nav-button">Create Aesthetic</a>
+            <a href="{% url 'create_outfitidea' %}" class="nav-button">Create Outfit Idea</a>
+            <a href="{% url 'create_outfitsuggestion' %}" class="nav-button">Create Outfit Suggestion</a>
+            
+            <!-- Authentication Links -->
+            <div style="margin-left: auto; display: inline-block;">
+                {% if user.is_authenticated %}
+                    <span style="margin-right: 10px; color: white;">Welcome, {{ user.username }}!</span>
+                    <form method="POST" action="{% url 'logout' %}" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="nav-button">Logout</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}" class="nav-button">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>

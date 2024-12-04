@@ -1,0 +1,14 @@
+{% extends 'project/base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<h1 style="text-align: center; color: #ff66a3;">Register</h1>
+<form method="post" style="max-width: 600px; margin: auto;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div style="text-align: center;">
+        <button type="submit" class="custom-button">Register</button>
+    </div>
+</form>
+{% endblock %}

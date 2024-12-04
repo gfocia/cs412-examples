@@ -251,3 +251,26 @@ class ShowNewsFeedView(LoginRequiredMixin, DetailView): ## NEW for assignment 8
 
     def get_object(self): ## NEW for assignment 9 
         return Profile.objects.get(user=self.request.user)
+
+class CreatePostView(LoginRequiredMixin, CreateView):
+    ''' A View to create a new Post '''
+    form_class = CreateStatusMessageForm
+    template_name = 'project/create_post_form.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        context['profile'] = profile
+        return context
+
+    def form_valid(self, form):
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        form.instance.profile = profile
+        sm = form.save()
+
+        # Handle files (if any) here, similar to the logic above
+
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})

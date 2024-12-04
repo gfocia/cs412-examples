@@ -5,6 +5,7 @@ from datetime import date
 import plotly.express as px
 from plotly.offline import plot
 
+
 class VoterListView(ListView):
     model = Voter
     template_name = 'voter_analytics/voter_list.html'

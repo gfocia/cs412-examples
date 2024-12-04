@@ -1,0 +1,32 @@
+{% extends 'project/base.html' %}
+
+{% block title %}All Outfit Suggestions{% endblock %}
+
+{% block content %}
+    <h1 style="text-align: center; color: #ff66a3;">Outfit Suggestions</h1>
+
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin: 20px;">
+        {% for outfitsuggestion in outfitsuggestions %}
+            <div style="border: 2px solid #ff99c8; border-radius: 10px; background-color: #ffe6f0; padding: 15px; width: 300px;">
+                <div style="text-align: center;">
+                    {% if outfitsuggestion.image %}
+                        <img src="{{ outfitsuggestion.image.url }}" alt="{{ outfitsuggestion.title }}" style="width: 100%; height: auto; border-radius: 10px; object-fit: cover;">
+                    {% else %}
+                        <div style="width: 100%; height: 200px; background-color: #ff99c8; display: flex; align-items: center; justify-content: center; border-radius: 10px; color: white; font-size: 14px;">
+                            No Image
+                        </div>
+                    {% endif %}
+                </div>
+                <div style="margin-top: 10px;">
+                    <h3 style="color: #ff66a3; text-align: center;">{{ outfitsuggestion.title }}</h3>
+                    <p style="color: #555; text-align: center;">{{ outfitsuggestion.description }}</p>
+                </div>
+                <div style="text-align: center; margin-top: 10px;">
+                    <a href="{% url 'show_outfitsuggestion' outfitsuggestion.pk %}" class="custom-button">View Suggestion</a>
+                </div>
+            </div>
+        {% empty %}
+            <p style="color: #555; font-size: 1.2em; text-align: center;">No outfit suggestions available. Check back later!</p>
+        {% endfor %}
+    </div>
+{% endblock %}

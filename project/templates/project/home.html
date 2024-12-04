@@ -1,0 +1,15 @@
+{% extends 'project/base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <h1>All Posts</h1>
+    <ul>
+        {% for post in posts %}
+            <li>
+                <strong>{{ post.profile.user.username }}</strong>: {{ post.message }}
+                <em>{{ post.timestamp }}</em>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
