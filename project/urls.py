@@ -1,3 +1,7 @@
+# File: project/urls.py
+# Author: Georgina Focia (gfocia@bu.edu), (12/10/2024)
+# Description: The file containing all of the urls for my final project 
+
 from django.urls import path
 from .views import (
     ShowAllProfilesView, 

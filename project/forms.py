@@ -1,3 +1,7 @@
+# File: project/forms.py
+# Author: Georgina Focia (gfocia@bu.edu), (12/10/2024)
+# Description: The file containing all of the nessecary forms for my final project 
+
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile, OutfitIdea, StatusMessage, Aesthetic, OutfitSuggestion

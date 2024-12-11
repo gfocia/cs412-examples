@@ -1,3 +1,7 @@
+# File: project/models.py
+# Author: Georgina Focia (gfocia@bu.edu), (12/10/2024)
+# Description: The file containing all of the models for my final project 
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse

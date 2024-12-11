@@ -1,3 +1,7 @@
+# File: project/views.py
+# Author: Georgina Focia (gfocia@bu.edu), (12/10/2024)
+# Description: The file containing all of the views for my final project 
+
 from django.shortcuts import render
 from django.urls import reverse
 from django.http import HttpResponseRedirect
@@ -106,7 +110,6 @@ class ShowAllOutfitIdeasView(ListView):
         context = super().get_context_data(**kwargs)
         context['aesthetics'] = Aesthetic.objects.all()
         return context
-
 
 
 class ShowOutfitIdeaPageView(DetailView):
