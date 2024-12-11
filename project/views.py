@@ -15,7 +15,6 @@ from .forms import (
     CustomUserCreationForm
 )
 
-
 # Profile Views
 class ShowAllProfilesView(ListView):
     """
@@ -92,13 +91,22 @@ class ShowAestheticPageView(DetailView):
 
 # Outfit Idea Views
 class ShowAllOutfitIdeasView(ListView):
-    """
-    Display a list of all outfit ideas.
-    Template: project/show_all_outfitideas.html
-    """
     model = OutfitIdea
     template_name = 'project/show_all_outfitideas.html'
     context_object_name = 'outfitideas'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        aesthetic_id = self.request.GET.get('aesthetic')
+        if aesthetic_id:
+            queryset = queryset.filter(style_aesthetic_id=aesthetic_id)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['aesthetics'] = Aesthetic.objects.all()
+        return context
+
 
 
 class ShowOutfitIdeaPageView(DetailView):
@@ -136,13 +144,21 @@ class CreateOutfitIdeaView(LoginRequiredMixin, CreateView):
 
 # Outfit Suggestion Views
 class ShowAllOutfitSuggestionsView(ListView):
-    """
-    Display a list of all outfit suggestions.
-    Template: project/show_all_outfitsuggestions.html
-    """
     model = OutfitSuggestion
     template_name = 'project/show_all_outfitsuggestions.html'
     context_object_name = 'outfitsuggestions'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        aesthetic_id = self.request.GET.get('aesthetic')
+        if aesthetic_id:
+            queryset = queryset.filter(aesthetic_id=aesthetic_id)
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['aesthetics'] = Aesthetic.objects.all()
+        return context
 
 
 class ShowOutfitSuggestionPageView(DetailView):

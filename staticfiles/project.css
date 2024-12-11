@@ -46,17 +46,34 @@ a:hover {
     text-decoration: underline;
 }
 
-button {
+.custom-button {
     background-color: #ff66a3;
     color: white;
     border: none;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 25px;
+    font-size: 1em;
+    font-weight: bold;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    text-decoration: none;
+    display: inline-block;
 }
 
-button:hover {
+.custom-button:hover {
     background-color: #ff99c8;
+    transform: scale(1.05);
+}
+
+.custom-link {
+    color: #ff66a3;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.custom-link:hover {
+    color: #ff99c8;
 }
 
 /* Navigation Bar */
